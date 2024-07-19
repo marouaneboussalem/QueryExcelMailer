@@ -35,8 +35,7 @@ public class getData  extends  GetParams{
             Class.forName(driver);
 
             // Establish a connection
-            connection = DriverManager.getConnection(url
-                    , login, password);
+            connection = DriverManager.getConnection(url, login, password);
 
             // Process the statement
             statement = connection.createStatement();
@@ -50,7 +49,9 @@ public class getData  extends  GetParams{
 
             // Get result set metadata
             ResultSetMetaData metaData = resultSet.getMetaData();
+
             int columnCount = metaData.getColumnCount();
+       
 
             // Create header row
             XSSFRow headerRow = spreadsheet.createRow(0);

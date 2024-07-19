@@ -10,7 +10,7 @@ public class GetParams {
  {
      HashMap<String,String> params = new HashMap<>();
      try{
-     File file = new File("C:path");
+     File file = new File("path");
      Scanner sc = new Scanner(file);
 
      while (sc.hasNextLine())
