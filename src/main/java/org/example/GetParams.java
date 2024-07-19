@@ -6,46 +6,51 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class GetParams {
+ public static  Map<String,String> ReadFile()
+ {
+     HashMap<String,String> params = new HashMap<>();
+     try{
+     File file = new File("C:\\Users\\marou\\OneDrive\\Bureau\\parametre.txt");
+     Scanner sc = new Scanner(file);
 
-
-        public static Map<String,String> ReadFile()
-        {
-            Map <String,String> params = new HashMap<>();
-
-            try{
-                File file = new File("M:\\Stage\\parametre.txt");
-                Scanner sc = new Scanner(file);
-
-
-                while (sc.hasNextLine())
-                {
-
-                    String line =  sc.nextLine();
-                    if(line.isEmpty())
-                    {
-                        continue;
-                    }
-                    String [] parts = line.split(":",2);
-                    if(parts.length!=2 )
-                    {
-                        System.err.println("invalid format"+line);
-                        continue;
-                    }
-
-                    String key = parts[0].trim();
-                    String value = parts[1].trim().replace("\"","");
-                    params.put(key,value);
-
-                }
-
-            }
-            catch ( Exception e)
+     while (sc.hasNextLine())
+     {
+         String line = sc.nextLine();
+         if(line.isEmpty())
+         {
+             continue;
+         }
+         String [] parts = line.split(":",2);
+         if(parts.length!=2)
+         {
+                 System.err.println("Invalid format: " + line);
+                 continue;
+         }
+         String key = parts[0].trim();
+         String value = parts[1].trim().replaceAll("\"","");
+         if (key.equals("requete"))
+         {
+            StringBuilder query = new StringBuilder(value);
+            while (sc.hasNextLine())
             {
-                System.out.println("error");
-                e.printStackTrace();
+                String nextline = sc.nextLine();
+                if (nextline.trim().isEmpty())
+                {
+                    break;
+                }
+                query.append(" ").append(nextline.trim());
             }
-            return params;
-        }
-
+            value=query.toString();
+         }
+         params.put(key,value);
+     }
+     }
+     catch (Exception e)
+     {
+         System.out.println("Error");
+         e.printStackTrace();
+     }
+     return params;
+ }
 
 }
